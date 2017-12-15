@@ -28,3 +28,8 @@ export const COMMENT_VOTE_DOWN = 'COMMENT_VOTE_DOWN';
 export const GET_POSTS_BY_CATEGORY = 'GET_POSTS_BY_CATEGORY';
 export const GET_POSTS_BY_UPVOTE = 'GET_POSTS_BY_UPVOTE';
 export const GET_POSTS_BY_DOWNVOTE = 'GET_POSTS_BY_DOWNVOTE';
+
+
+// Contant for the url
+// CHECK: Is it a good idea to put it here? or better a constant.js file?
+export const ROOT_URL = 'http://localhost:3001'; // http://localhost:5001'

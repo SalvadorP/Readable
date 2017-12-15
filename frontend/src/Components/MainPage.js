@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Grid, Row, Col, Jumbotron } from 'react-bootstrap';
 import PostCard from './PostCard';
 
-class MainPage extends Component {e
+class MainPage extends Component {
 
     render() {
         return (

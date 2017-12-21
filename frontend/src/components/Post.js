@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import { Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-class PostCard extends Component {
+class Post extends Component {
     render() {
         return (
+            <Col xs={6} sm={3} className="Post">
             <div className="PostCardPage">
                 <div className="card">
                     <div className="card-body">
@@ -15,8 +17,10 @@ class PostCard extends Component {
                     </div>
                 </div>
             </div>
+            </Col>
         )
     }
 }
 
-export default PostCard
+export default Post;
+

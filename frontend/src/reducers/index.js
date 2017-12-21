@@ -14,7 +14,6 @@ export function posts(state = null, action) {
         posts[ action.posts[num].id ] = action.posts[num]
       }
       return posts;
-      break;
       default: break;
   }
 

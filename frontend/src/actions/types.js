@@ -32,4 +32,5 @@ export const GET_POSTS_BY_DOWNVOTE = 'GET_POSTS_BY_DOWNVOTE';
 
 // Contant for the url
 // CHECK: Is it a good idea to put it here? or better a constant.js file?
-export const ROOT_URL = 'http://localhost:3001'; // http://localhost:5001'
+export const SERVER_URL = 'http://localhost:3001';
+export const AUTH_HEADERS = { 'Authorization': 'readable1234', 'Accept': 'application/json', };

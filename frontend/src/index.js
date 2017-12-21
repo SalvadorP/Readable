@@ -4,7 +4,7 @@ import './css/index.css';
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, applyMiddleware, compose } from 'redux';
-import reducer from './reducers';
+import reducer from './reducers/index';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
@@ -25,6 +25,7 @@ const store = createStore(
         applyMiddleware(thunk)
     )
 );
+console.log(store.getState());
 
 ReactDOM.render(
     <Provider store={store}><App /></Provider>,     

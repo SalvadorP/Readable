@@ -8,13 +8,13 @@ import { getAllPosts } from '../actions/Post';
 class AllPosts extends Component {
     // TODO: Get all the posts and render them.
     // componentWillMount() {
-    //     console.log('component will mount');
+    //     // console.log('component will mount');
+    //     // FIXME: Which is better? will mount or did mount?
     //     this.props.getAllPosts();
     // }
 
     componentDidMount() {
-        console.log('component DID mount');
-        // this.props.getAllPosts();
+        // console.log('component DID mount');
         const { getAllPosts } = this.props;
         getAllPosts();
     }
@@ -34,7 +34,6 @@ class AllPosts extends Component {
 
     render() {
         const { posts = [] } = this.props;
-        console.log(posts);
         return (
             <div className="AllPosts">
                 <Grid>                    
@@ -48,8 +47,11 @@ class AllPosts extends Component {
 }
 
 function mapStateToProps(state) {
-    const posts = state.posts;
-    return {posts};
+    if (state !== undefined) {
+        const posts = state;
+        return {posts};
+    }
+    return {};
 }
 
 export default connect(mapStateToProps, {

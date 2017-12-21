@@ -25,7 +25,7 @@ export function getAllPosts() {
   return dispatch => {
     superagent.get(SERVER_URL + '/posts')
       .set(AUTH_HEADERS)
-      .on('error', getAllPostsError)
+      .on('error', getAllPostsError())
       .use(nocache)
       .then(response => dispatch(getAllPostsSuccess(response.body)));
   };
@@ -39,13 +39,14 @@ export function getAllPostsSuccess(posts) {
   // console.log('------------------');
   return {
     type: GET_ALL_POSTS,
-    posts
+    data: posts
   };
 }
 
-export function getAllPostsError() {
+export function getAllPostsError(response) {
   // console.log('GET ALL POSTS ERROR!!');
   // console.log('------------------');
+  // console.log(response);
   return {
     type: GET_ALL_POSTS,
     data: []

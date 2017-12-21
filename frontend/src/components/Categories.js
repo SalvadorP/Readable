@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Grid, Row, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { getAllCategories } from '../actions/Categories';
 
 class Categories extends Component {
@@ -13,19 +13,21 @@ class Categories extends Component {
     }
 
     submitHandler(e) {
-        console.log(e);
+        console.log('=== submitHandler ===');
+        console.log(e.target.value);
+        console.log('=== ============= ===')
     }
 
     render() {
         const { categories = [] } = this.props;
         return (
             <div className="Categories">
-            <form onChange={this.submitHandler()}>
+            <form>
                 <FormGroup controlId="formControlsSelect">
                     <ControlLabel>Categories</ControlLabel>
-                    <FormControl componentClass="select" placeholder="select">
+                    <FormControl componentClass="select" placeholder="select" onChange={this.submitHandler}>
                         { _.map(categories, categorie => (
-                            <option value="{categorie.path}">{categorie.name}</option>                      
+                            <option key={categorie.path} value={categorie.path}>{categorie.name}</option>                      
                         )) }   
                     </FormControl>
                 </FormGroup>
@@ -36,7 +38,6 @@ class Categories extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(state);
     if (state !== undefined) {
         const categories = state.categories;
         return {categories};

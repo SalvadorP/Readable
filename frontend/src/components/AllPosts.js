@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row } from 'react-bootstrap';
 import Post from './Post';
 import { getAllPosts } from '../actions/Post';
 
@@ -20,7 +20,7 @@ class AllPosts extends Component {
     }
 
     render() {
-        const { categories = [], posts = [] } = this.props;        
+        const { posts = [] } = this.props;        
         return (
             <Grid>
                 <Row>

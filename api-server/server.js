@@ -166,6 +166,8 @@ app.get('/posts', (req, res) => {
 })
 
 app.post('/posts', bodyParser.json(), (req, res) => {
+    console.log('POST POSTS ');
+    console.log(req.body);
     posts.add(req.token, req.body)
       .then(
           (data) => res.send(data),
@@ -206,6 +208,7 @@ app.delete('/posts/:id', (req, res) => {
 })
 
 app.post('/posts/:id', bodyParser.json(), (req, res) => {
+    console.log('POST POSTS ID VOTE?');
     const { option } = req.body
     const id = req.params.id
     posts.vote(req.token, id, option)

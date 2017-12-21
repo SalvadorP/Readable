@@ -31,25 +31,17 @@ export function getAllPosts() {
   };
 }
 
-// export function 
-
 export function getAllPostsSuccess(posts) {
-  // console.log('GET ALL POSTS SUCESS');
-  // console.log(posts);
-  // console.log('------------------');
   return {
     type: GET_ALL_POSTS,
     data: posts
   };
 }
 
+// TODO: Check if it's used...
 export function getAllPostsError(response) {
-  // console.log('GET ALL POSTS ERROR!!');
-  // console.log('------------------');
-  // console.log(response);
   return {
     type: GET_ALL_POSTS,
     data: []
   };
 }
-

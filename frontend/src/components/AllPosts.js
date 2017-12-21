@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Grid, Row } from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import Post from './Post';
 import { getAllPosts } from '../actions/Post';
 
@@ -19,36 +19,21 @@ class AllPosts extends Component {
         getAllPosts();
     }
 
-    // renderPosts() {
-    //     console.log('render Posts');
-    //     var {posts} = this.props;
-    //     if (posts === undefined) {
-    //         return <div>No posts</div>
-    //     }
-    //     if (posts) {
-    //         return _.map(posts, post => <Post key={post.id} post={post} />);
-    //     } else {
-    //         return <div>Loading...</div>
-    //     }
-    // }
-
     render() {
-        const { posts = [] } = this.props;
+        const { categories = [], posts = [] } = this.props;        
         return (
-            <div className="AllPosts">
-                <Grid>                    
-                    <Row>
-                        { _.map(posts, post => <Post key={post.id} post={post} />) }   
-                    </Row>    
-                </Grid>
-            </div>
+            <Grid>
+                <Row>
+                    { _.map(posts, post => <Post key={post.id} post={post} />) }   
+                </Row>
+            </Grid>
         )
     }
 }
 
 function mapStateToProps(state) {
     if (state !== undefined) {
-        const posts = state;
+        const posts = state.posts;
         return {posts};
     }
     return {};
@@ -57,5 +42,3 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
     getAllPosts,
 })(AllPosts);
-
-// export default AllPosts;

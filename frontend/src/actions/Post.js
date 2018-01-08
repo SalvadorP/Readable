@@ -4,7 +4,9 @@ import {
     AUTH_HEADERS,
     POST_VOTE_DOWN,
     POST_VOTE_UP,
-    GET_POST
+    GET_POST,
+    DELETE_POST,
+    EDIT_POST
 } from './types';
 
 import superagent from 'superagent';
@@ -16,15 +18,6 @@ import nocache from 'superagent-no-cache';
 // https://visionmedia.github.io/superagent/
 
 export function getAllPosts() {
-  // console.log('GET ALL POSTS');
-  // return dispatch => {
-  //   fetch(SERVER_URL + "/posts/", {method: "GET", headers: AUTH_HEADERS})
-  //   .then((resp) => {
-  //     resp.json().then((data) => {
-  //       dispatch(getAllPostsSuccess(data));
-  //     })
-  //   });
-  // }
   return dispatch => {
     superagent.get(SERVER_URL + '/posts')
       .set(AUTH_HEADERS)
@@ -53,70 +46,53 @@ export function getPost(id) {
     return dispatch => {
         superagent.get(SERVER_URL + '/posts/' + id)
             .set(AUTH_HEADERS)
-            .on('error', getPostsError())
+            .on('error', getPostError())
             .use(nocache)
-            .then(response => dispatch(getPostsSuccess(response.body)));
+            .then(response => dispatch(getPostSuccess(response.body)));
     };
 }
 
-export function getPostsSuccess(post) {
+export function getPostSuccess(post) {
+    console.log('============ GET POST SUCCESS ========');
+    console.log(post);
+    console.log('====================================');
     return {
         type: GET_POST,
         data: post
     };
 }
   
-export function getPostsError(response) {
+export function getPostError(response) {
     return {
       type: GET_POST,
       data: []
     };
 }
 
-
 export function postVoteUp(id) {
-    console.log('POST = ' + id + ' VOTE UP');
-    console.log(SERVER_URL + '/posts');
     return dispatch => {
-        // superagent.post(SERVER_URL + '/posts')
-        //     .set(AUTH_HEADERS)
-        //     .send({option: 'upVote'})            
-        //     // .on('error', votePostError())
-        //     // .use(nocache)
-        //     .then(response => dispatch(votePostSuccess(response.body, POST_VOTE_UP)));
-        const options = {
-            method: 'post',
-            headers: AUTH_HEADERS,
-            body: JSON.stringify({
-              option: 'upVote'
-            })
-          }
-          console.log("INSIDE!");
-          return fetch(`http://localhost:3001/posts/${id}`, options)
-          .then(
-            res => {
-              return res.json()
-            }
-          )
-          .catch(err => console.error(err))
+        superagent.post(SERVER_URL + '/posts/' + id)
+            .set(AUTH_HEADERS)
+            .send({option: 'upVote'})            
+            .on('error', postVoteUpError())
+            // .use(nocache)
+            .then(response => dispatch(postVoteUpSuccess(response.body, POST_VOTE_UP)));        
     }
 }
 
 export function postVoteDown(id) {
-  console.log('POST = ' + id + ' VOTE DOWN');
-  console.log(SERVER_URL + '/posts/' + id);
     return dispatch => {
         superagent.post(SERVER_URL + '/posts/' + id)
             .send({option: 'downVote'})
             .set(AUTH_HEADERS)
-            .on('error', votePostError())
+            .on('error', postVoteDownError())
             // .use(nocache)
-            .then(response => dispatch(votePostSuccess(response.body, POST_VOTE_DOWN)));
+            .then(response => dispatch(postVoteDownSuccess(response.body, POST_VOTE_DOWN)));
     }
 }
 
-export function votePostSuccess(data, type) {
-    console.log('VOTE POST SUCCESS');
+export function postVoteUpSuccess(data, type) {
+    console.log('VOTE UP POST SUCCESS');
     console.log(data);
     console.log("--------");
     return {
@@ -125,11 +101,88 @@ export function votePostSuccess(data, type) {
     };
 }
 
-export function votePostError() {
-    console.log('VOTE POST ERROR!!');
+export function postVoteDownSuccess(data, type) {
+    console.log('VOTE DOWN POST SUCCESS');
+    console.log(data);
+    console.log("--------");
+    return {
+        type: type,
+        data: data
+    };
+}
+
+export function postVoteUpError() {
+    console.log('VOTE UP POST ERROR!!');
     console.log("--------");
     return {
         type: POST_VOTE_UP,
+        data: []
+    };
+}
+
+export function postVoteDownError() {
+    console.log('VOTE DOWN POST ERROR!!');
+    console.log("--------");
+    return {
+        type: POST_VOTE_DOWN,
+        data: []
+    };
+}
+
+export function editPost(id) {
+    console.log('POST = ' + id + ' EDIT');
+    console.log(SERVER_URL + '/posts/' + id);
+    // return dispatch => {
+    //     superagent.put(SERVER_URL + '/posts/' + id)
+    //         .set(AUTH_HEADERS)
+    //         .send({option: 'upVote'})            
+    //         .on('error', editPostError())
+    //         // .use(nocache)
+    //         .then(response => dispatch(editPostSuccess(response.body, EDIT_POST)));        
+    // }
+}
+
+export function editPostSuccess(data, type) {
+    return {
+        type: type,
+        data: data
+    };
+}
+
+export function editPostError() {
+    return {
+        type: DELETE_POST,
+        data: []
+    };
+}
+
+export function deletePost(id) {
+    console.log('POST = ' + id + ' DELETE');
+    console.log(SERVER_URL + '/posts/' + id);
+    return dispatch => {
+        console.log('dispatching delete');
+        superagent.del(SERVER_URL + '/posts/' + id)
+            .send({id: id})
+            .set(AUTH_HEADERS)        
+            .on('error', deletePostError())
+            // .use(nocache)
+            .then(response => dispatch(deletePostSuccess(id, DELETE_POST)));        
+    }
+}
+
+export function deletePostSuccess(data, type) {
+    console.log('============== DELETE POST SUCCESS ======================');
+    console.log(data);
+    console.log('====================================');
+    return {
+        type: type,
+        data: data
+    };
+}
+
+export function deletePostError() {
+    return {
+        type: DELETE_POST,
         data: []
     };
 }

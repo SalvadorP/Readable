@@ -1,33 +1,37 @@
 import React, {Component} from 'react';
-import { Col, Button, Glyphicon, Row } from 'react-bootstrap';
+import { Col, Glyphicon, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { postVoteUp, postVoteDown } from '../actions/Post';
 
 class Post extends Component {
+    
     render() {
         const {post} = this.props;
+        console.log('====================================');
+        console.log(post);
+        console.log('====================================');
         return (
             <Col xs={6} sm={4} md={4} className="">
                 <div className="PostCardPage">
                     <div className="card">
                         <div className="card-body">
                             <h4 className="card-title">{post.title}</h4>
-                            <h6 className="card-subtitle mb-2 text-muted">{post.author}</h6>
-                            <p className="card-text">{post.body}</p>
-                            <Link className="btn btn-success btn-block" to={post.category + '/' + post.id}>View Post X</Link>
-                            <Link className="btn btn-info btn-block" to="/">Comment Post X</Link>
-                            <br />
                             <Row>
-                                <Col xs={12} sm={6} md={6}>
-                                    <Button onClick={() => postVoteUp(post.id)} className="btn-block btn-primary">
-                                        <Glyphicon glyph="upload" /> +1
-                                    </Button>
+                                <Col xs={8} sm={8} md={8}>
+                                    <h6 className="card-subtitle mb-2 text-muted">{post.author}</h6>
                                 </Col>
-                                <Col xs={12} sm={6} md={6}>
-                                    <Button onClick={() => postVoteDown(post.id)} className="btn-block btn-danger">
-                                        <Glyphicon glyph="download" /> -1
-                                    </Button>
+                                <Col xs={4} sm={4} md={4}>
+                                    <span className="label label-info">Votes: {post.voteScore}</span>
+                                </Col>                                
+                            </Row>                           
+                            <p className="card-text">{post.body}</p>
+                            <br />
+                            <Row>                                
+                                <Col xs={6} sm={6} md={6}>
+                                    <Link className="btn btn-success btn-block" to={post.category + '/' + post.id}><Glyphicon glyph="fullscreen" /></Link>
                                 </Col>
+                                <Col xs={6} sm={6} md={6}>
+                                    <Link className="btn btn-info btn-block" to="/"><Glyphicon glyph="comment" /></Link>
+                                </Col>                                
                             </Row>
                         </div>
                     </div>
@@ -36,6 +40,28 @@ class Post extends Component {
         )
     }
 }
+
+// const mapDispatchToProps(dispatch) => {
+//     return {
+//         postVoteUp : (...args) => dispatch(action1(...args)),
+//         autoBoundAction : bindActionCreators(action2, dispatch),
+//         multipleActionsTogether : bindActionCreators({action1, action2}, dispatch)
+//     }
+// };
+
+// export default connect(null, mapDispatchToProps)(Post);
+
+// function mapStateToProps(state) {
+//     if (state !== undefined) {
+//         const post = state.post;
+//         return {post};
+//     }
+//     return {};
+// }
+
+// export default connect(null, {
+//     postVoteUp, postVoteDown
+// })(Post);
 
 export default Post;
 

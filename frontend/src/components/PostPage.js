@@ -1,31 +1,61 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import { Col, Button, Glyphicon, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { postVoteUp, postVoteDown } from '../actions/Post';
+import { getPost, postVoteUp, postVoteDown, editPost, deletePost } from '../actions/Post';
+import NoMatch from './NoMatch';
 
 class PostPage extends Component {
+
+    state = {
+        totalComments: 0
+    }
+    
+    componentDidMount() {
+        const { id } = this.props.match.params;
+        this.props.getPost(id);     
+    }
+
     render() {
-        const {post} = this.props;
+        const {post, postVoteUp, postVoteDown} = this.props;
         return (
+            (!post) ? <NoMatch /> : 
             <Row>
-                <Col xs={6} sm={4} md={4} className="">
+                <Col xs={12} sm={12} md={12} className="">
                     <div className="PostCardPage">
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title">{post.title}</h4>
-                                <h6 className="card-subtitle mb-2 text-muted">{post.author}</h6>
+                                <Row>
+                                    <Col xs={8} sm={8} md={8}>
+                                        <h6 className="card-subtitle mb-2 text-muted">{post.author}</h6>
+                                    </Col>
+                                    <Col xs={4} sm={4} md={4}>
+                                        <span className="label label-info">Votes: {post.voteScore}</span>
+                                    </Col>                                
+                                </Row>                           
                                 <p className="card-text">{post.body}</p>
-                                <Link className="btn btn-info btn-block" to="/">Comment Post X</Link>
+                                <Link className="btn btn-primary btn-block" to="/">Comment Post X</Link>
                                 <br />
                                 <Row>
-                                    <Col xs={12} sm={8} md={9}>
-                                        <Button onClick={() => postVoteUp(post.id)} className="btn-block btn-primary">
-                                            <Glyphicon glyph="upload" /> +1
+                                    <Col xs={6} sm={3} md={3}>
+                                        <Button onClick={() => editPost(post.id)} className="btn-block btn-info">
+                                            <Glyphicon glyph="pencil" />
                                         </Button>
                                     </Col>
-                                    <Col xs={12} sm={4} md={3}>
-                                        <Button onClick={() => postVoteDown(post.id)} className="btn-block btn-danger">
-                                            <Glyphicon glyph="download" /> -1
+                                    <Col xs={6} sm={3} md={3}>
+                                        <Button onClick={() => deletePost(post.id)} className="btn-block btn-danger">
+                                            <Glyphicon glyph="trash" />
+                                        </Button>
+                                    </Col>
+                                    <Col xs={6} sm={3} md={3}>
+                                        <Button onClick={() => postVoteUp(post.id)} className="btn-block btn-success">
+                                            <Glyphicon glyph="thumbs-up" />
+                                        </Button>
+                                    </Col>
+                                    <Col xs={6} sm={3} md={3}>
+                                        <Button onClick={() => postVoteDown(post.id)} className="btn-block btn-warning">
+                                            <Glyphicon glyph="thumbs-down" />
                                         </Button>
                                     </Col>
                                 </Row>
@@ -38,5 +68,14 @@ class PostPage extends Component {
     }
 }
 
-export default PostPage;
+function mapStateToProps(state, postProps) {
+    console.log('============ MAP STATE TO PROPS POSTPAGE ==============');
+    console.log(state);
+    console.log(postProps);
+    console.log('=======================================================');
+    return { post: state.posts[postProps.match.params.id] }
+}
 
+export default connect(mapStateToProps, {
+    getPost, postVoteUp, postVoteDown, editPost, deletePost
+})(PostPage);

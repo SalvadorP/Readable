@@ -13,9 +13,11 @@ class Categories extends Component {
     }
 
     submitHandler(e) {
-        console.log('=== submitHandler ===');
+        console.log('=== Categories submitHandler ===');
+        // TODO: When changing categories, reload the posts filtered by category.
+        // Alter the state to avoid a request? Or better to ask the server filtering by cat?        
         console.log(e.target.value);
-        console.log('=== ============= ===')
+        console.log('=== ======================== ===');
     }
 
     render() {

@@ -14,7 +14,7 @@ class MenuBar extends Component {
                 </Navbar.Header>
                 <Navbar.Collapse>
                     <Nav>
-                        <NavItem eventKey={1} href="/">Readable</NavItem>
+                        <NavItem eventKey={1} href='/'>Readable</NavItem>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

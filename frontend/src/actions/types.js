@@ -9,7 +9,7 @@ export const DELETE_POST = 'DELETE_POST';
 
 // Comment Actions
 export const GET_POST_COMMENTS = 'GET_POST_COMMENTS';
-export const GET_POST_COMMENTS_NUMBER = 'GET_POST_COMMENTS_NUMBER';
+export const GET_POST_COMMENTS_TOTAL = 'GET_POST_COMMENTS_TOTAL';
 export const NEW_COMMENT = 'NEW_COMMENT';
 export const GET_COMMENT = 'GET_COMMENT';
 export const EDIT_COMMENT = 'EDIT_COMMENT';
@@ -33,4 +33,4 @@ export const GET_POSTS_BY_DOWNVOTE = 'GET_POSTS_BY_DOWNVOTE';
 // Contant for the url
 // CHECK: Is it a good idea to put it here? or better a constant.js file?
 export const SERVER_URL = 'http://localhost:3001';
-export const AUTH_HEADERS = { 'Authorization': 'readable1234', 'Accept': 'application/json', };
+export const AUTH_HEADERS = { 'Authorization': 'readableApp1234', 'Accept': 'application/json', };

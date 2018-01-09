@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Col, Button, Glyphicon, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { getPost, postVoteUp, postVoteDown, editPost, deletePost } from '../actions/Post';
+import { getPost, postVoteUp, postVoteDown, deletePost } from '../actions/Post';
 import NoMatch from './NoMatch';
 
 class PostPage extends Component {
@@ -17,7 +17,7 @@ class PostPage extends Component {
     }
 
     render() {
-        const {post, postVoteUp, postVoteDown} = this.props;
+        const {post, postVoteUp, postVoteDown, deletePost} = this.props;
         return (
             (!post) ? <NoMatch /> : 
             <Row>
@@ -39,9 +39,9 @@ class PostPage extends Component {
                                 <br />
                                 <Row>
                                     <Col xs={6} sm={3} md={3}>
-                                        <Button onClick={() => editPost(post.id)} className="btn-block btn-info">
+                                        <Link className="btn btn-success btn-block" to={'/' + post.category + '/' + post.id + '/edit' }>
                                             <Glyphicon glyph="pencil" />
-                                        </Button>
+                                        </Link>
                                     </Col>
                                     <Col xs={6} sm={3} md={3}>
                                         <Button onClick={() => deletePost(post.id)} className="btn-block btn-danger">
@@ -69,13 +69,22 @@ class PostPage extends Component {
 }
 
 function mapStateToProps(state, postProps) {
-    console.log('============ MAP STATE TO PROPS POSTPAGE ==============');
-    console.log(state);
-    console.log(postProps);
-    console.log('=======================================================');
     return { post: state.posts[postProps.match.params.id] }
 }
 
-export default connect(mapStateToProps, {
-    getPost, postVoteUp, postVoteDown, editPost, deletePost
-})(PostPage);
+function mapDispatchToProps (dispatch) {
+    return {
+        getPost: (id) => dispatch(getPost(id)),
+        postVoteUp: (id) => dispatch(postVoteUp(id)),
+        postVoteDown: (id) => dispatch(postVoteDown(id)),
+        deletePost: (id) => dispatch(deletePost(id)),
+    }
+}
+
+// export default connect(mapStateToProps, {
+//     getPost, postVoteUp, postVoteDown, editPost, deletePost
+// })(PostPage);
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostPage);
+
+

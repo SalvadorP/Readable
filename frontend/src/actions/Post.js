@@ -59,18 +59,16 @@ export function postVoteDown(id) {
     }
 }
 
-export function editPost(id, data) {
-    // IDEA: Consider using an object instead of parameters.
-    console.log('POST = ' + id + ' EDIT');
-    console.log(SERVER_URL + '/posts/' + id);
-    // return dispatch => {
-    //     superagent.put(SERVER_URL + '/posts/' + id)
-    //         .set(AUTH_HEADERS)
-    //         .send({option: 'upVote'})            
-    //         .on('error', actionError(EDIT_POST))
-    //         // .use(nocache)
-    //         .then(response => dispatch(actionSuccess(response.body, EDIT_POST)));        
-    // }
+export function editPost(formValues) {
+    const id = formValues.id;
+    return dispatch => {
+        superagent.put(SERVER_URL + '/posts/' + id)
+            .set(AUTH_HEADERS)
+            .send(formValues)            
+            .on('error', actionError(EDIT_POST))
+            // .use(nocache)
+            .then(response => {dispatch(actionSuccess(response.body, EDIT_POST))});        
+    }
 }
 
 export function deletePost(id) {

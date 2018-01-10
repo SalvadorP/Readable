@@ -16,8 +16,17 @@ class PostPage extends Component {
         this.props.getPost(id);     
     }
 
+    handleDelete(e) {
+        const { id } = this.props.match.params;
+        const { deletePost } = this.props;        
+        deletePost(id);        
+    }
+
     render() {
-        const {post, postVoteUp, postVoteDown, deletePost} = this.props;
+        const { post, postVoteUp, postVoteDown } = this.props;
+        // <Button onClick={() => deletePost(post.id)} className="btn-block btn-danger">
+        // <Button onClick={this.handleDelete.bind(post.id)} className="btn-block btn-danger">
+        
         return (
             (!post) ? <NoMatch /> : 
             <Row>
@@ -44,7 +53,7 @@ class PostPage extends Component {
                                         </Link>
                                     </Col>
                                     <Col xs={6} sm={3} md={3}>
-                                        <Button onClick={() => deletePost(post.id)} className="btn-block btn-danger">
+                                    <Button onClick={this.handleDelete.bind(this)} className="btn-block btn-danger">
                                             <Glyphicon glyph="trash" />
                                         </Button>
                                     </Col>

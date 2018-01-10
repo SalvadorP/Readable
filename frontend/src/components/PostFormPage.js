@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Col, Button, Glyphicon, Row, Form, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
+import { Col, Button, Glyphicon, Row, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { getPost, editPost, deletePost } from '../actions/Post';
 import NoMatch from './NoMatch';
+import serializeForm from 'form-serialize';
 
 class PostPage extends Component {
 
@@ -16,18 +17,22 @@ class PostPage extends Component {
         this.props.getPost(id);     
     }
 
-    onSubmit(e) {
-        console.log('=== Post Form Page handleSubmit ===');
-        // TODO: serialize all the values or put them into an object send it to the action.
-        console.log(e.target);
-        console.log('=== ======================== ===');
+    handleSubmit = (e) => {
+        const { editPost } = this.props;
+        const data = new serializeForm(e.target, {hash: true});
+        e.preventDefault();               
+        editPost(data);
+        // IDEA: once saved return to the list.
     }
 
     render() {
-        const {post, editPost, deletePost, handleSubmit} = this.props;
+        const {post, deletePost} = this.props;
+        // onSubmit={() => this.handleSubmit(this)}
+        // onSubmit={this.handleSubmit.bind(this)}
+        // onSubmit={this.onSubmit}>
         return (
             (!post) ? <NoMatch /> : 
-            <Form horizontal id="PostForm" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+            <form className="form-horizontal" id="PostForm" onSubmit={this.handleSubmit.bind(this)}>
                 <Row>
                     <Col xs={12} sm={12} md={12} className="">
                         <div className="PostCardPage">
@@ -37,8 +42,9 @@ class PostPage extends Component {
                                         <Col componentClass={ControlLabel} sm={2}>
                                             Title
                                         </Col>
-                                        <Col sm={10}>
-                                            <FormControl type="text" value={post.title} />
+                                        <Col sm={10}>                                            
+                                            <FormControl type="hidden" name="id" defaultValue={post.id} />
+                                            <FormControl type="text" placeholder="Title" name="title" defaultValue={post.title} />
                                         </Col>
                                     </FormGroup>
                                     <FormGroup controlId="formHorizontalBody">
@@ -46,7 +52,7 @@ class PostPage extends Component {
                                             Body
                                         </Col>
                                         <Col sm={10}>
-                                            <FormControl type="text" placeholder="Body" value={post.body} />
+                                            <FormControl type="text" placeholder="Body" name="body" defaultValue={post.body} />
                                         </Col>
                                     </FormGroup>
                                     <FormGroup controlId="formHorizontalAuthor">
@@ -54,7 +60,7 @@ class PostPage extends Component {
                                             Author
                                         </Col>
                                         <Col sm={10}>
-                                            <FormControl type="text" placeholder="Author" value={post.author} />
+                                            <FormControl type="text" placeholder="Author" name="author" defaultValue={post.author} />
                                         </Col>
                                     </FormGroup>                                               
                                     <br />
@@ -80,10 +86,20 @@ class PostPage extends Component {
                         </div>
                     </Col>
                 </Row>
-            </Form>
+            </form>
         )
     }
 }
+
+// function FieldGroup({ id, label, help, ...props }) {
+// 	return (
+// 		<FormGroup controlId={id}>
+// 			<ControlLabel>{label}</ControlLabel>
+// 			<FormControl {...props} />
+// 			{help && <HelpBlock>{help}</HelpBlock>}
+// 		</FormGroup>
+// 	);
+// }
 
 function mapStateToProps(state, postProps) {
     console.log('============ MAP STATE TO PROPS POST FORM PAGE ==============');

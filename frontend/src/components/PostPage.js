@@ -4,6 +4,7 @@ import { Col, Button, Glyphicon, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { getPost, postVoteUp, postVoteDown, deletePost } from '../actions/Post';
 import NoMatch from './NoMatch';
+import Confirm from 'react-confirm-bootstrap';
 
 class PostPage extends Component {
 
@@ -16,7 +17,13 @@ class PostPage extends Component {
         this.props.getPost(id);     
     }
 
-    handleDelete(e) {
+    // handleDelete(e) {
+    //     const { id } = this.props.match.params;
+    //     const { deletePost } = this.props;        
+    //     deletePost(id);        
+    // }
+
+    onConfirm() {
         const { id } = this.props.match.params;
         const { deletePost } = this.props;        
         deletePost(id);        
@@ -53,9 +60,15 @@ class PostPage extends Component {
                                         </Link>
                                     </Col>
                                     <Col xs={6} sm={3} md={3}>
-                                    <Button onClick={this.handleDelete.bind(this)} className="btn-block btn-danger">
-                                            <Glyphicon glyph="trash" />
-                                        </Button>
+                                        <Confirm
+                                            onConfirm={this.onConfirm.bind(this)}
+                                            body="Are you sure you want to delete this post?"
+                                            confirmText="Delete!"
+                                            title={'Delete ' + '"' + post.title + '"'}>
+                                            <Button className="btn-block btn-danger">
+                                                <Glyphicon glyph="trash" />
+                                            </Button>
+                                        </Confirm>
                                     </Col>
                                     <Col xs={6} sm={3} md={3}>
                                         <Button onClick={() => postVoteUp(post.id)} className="btn-block btn-success">

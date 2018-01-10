@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import { getPost, editPost, deletePost } from '../actions/Post';
 import NoMatch from './NoMatch';
 import serializeForm from 'form-serialize';
+import Confirm from 'react-confirm-bootstrap';
 
-class PostPage extends Component {
+class PostFormPage extends Component {
 
     state = {
         totalComments: 0
@@ -23,6 +24,12 @@ class PostPage extends Component {
         e.preventDefault();               
         editPost(data);
         // IDEA: once saved return to the list.
+    }
+
+    onConfirm() {
+        const { id } = this.props.match.params;
+        const { deletePost } = this.props;        
+        deletePost(id);        
     }
 
     render() {
@@ -71,9 +78,15 @@ class PostPage extends Component {
                                             </Button>
                                         </Col>
                                         <Col xs={4} sm={4} md={4}>
-                                            <Button onClick={() => deletePost(post.id)} className="btn-block btn-danger">
-                                                <Glyphicon glyph="trash" />
-                                            </Button>
+                                            <Confirm
+                                                onConfirm={this.onConfirm.bind(this)}
+                                                body="Are you sure you want to delete this post?"
+                                                confirmText="Delete!"
+                                                title={'Delete ' + '"' + post.title + '"'}>
+                                                <Button className="btn-block btn-danger">
+                                                    <Glyphicon glyph="trash" />
+                                                </Button>
+                                            </Confirm>
                                         </Col>     
                                         <Col xs={4} sm={4} md={4}>
                                             <Link className="btn btn-primary btn-block" to={'/' + post.category + '/' + post.id}>
@@ -121,6 +134,6 @@ function mapDispatchToProps (dispatch) {
 //     getPost, postVoteUp, postVoteDown, editPost, deletePost
 // })(PostPage);
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PostFormPage);
 
 

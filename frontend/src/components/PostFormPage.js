@@ -39,6 +39,7 @@ class PostFormPage extends Component {
         // onSubmit={this.onSubmit}>
         return (
             (!post) ? <NoMatch /> : 
+            <div>
             <form className="form-horizontal" id="PostForm" onSubmit={this.handleSubmit.bind(this)}>
                 <Row>
                     <Col xs={12} sm={12} md={12} className="">
@@ -100,6 +101,8 @@ class PostFormPage extends Component {
                     </Col>
                 </Row>
             </form>
+            <PostCommentList />
+            </div>            
         )
     }
 }
@@ -115,10 +118,6 @@ class PostFormPage extends Component {
 // }
 
 function mapStateToProps(state, postProps) {
-    console.log('============ MAP STATE TO PROPS POST FORM PAGE ==============');
-    console.log(state);
-    console.log(postProps);
-    console.log('=======================================================');
     return { post: state.posts[postProps.match.params.id] }
 }
 

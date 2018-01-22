@@ -76,7 +76,7 @@ export function commentVoteDown(id) {
 export function postComment(formValues) {
     const id = formValues.id;
     return dispatch => {
-        superagent.post(SERVER_URL + '/comment/' + id)
+        superagent.post(SERVER_URL + '/comments/' + id)
             .set(AUTH_HEADERS)
             .send(formValues)            
             .on('error', actionError(NEW_COMMENT))
@@ -88,7 +88,7 @@ export function postComment(formValues) {
 export function editComment(formValues) {
     const id = formValues.id;
     return dispatch => {
-        superagent.put(SERVER_URL + '/comment/' + id)
+        superagent.put(SERVER_URL + '/comments/' + id)
             .set(AUTH_HEADERS)
             .send(formValues)            
             .on('error', actionError(EDIT_COMMENT))
@@ -99,7 +99,7 @@ export function editComment(formValues) {
 
 export function deleteComment(id) {
     return dispatch => {
-        superagent.del(SERVER_URL + '/comment/' + id)
+        superagent.del(SERVER_URL + '/comments/' + id)
             .send({id: id})
             .set(AUTH_HEADERS)        
             .on('error', actionError(DELETE_COMMENT))

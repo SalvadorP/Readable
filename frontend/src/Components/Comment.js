@@ -8,14 +8,13 @@ import { deleteComment, commentVoteUp, commentVoteDown } from '../actions/Commen
 class Comment extends Component {
 
     onConfirm() {
-        const { id } = this.props.match.params;
-        const { deletePost } = this.props;        
-        deletePost(id);        
+        const { id } = this.props.comment;
+        const { deleteComment } = this.props;        
+        deleteComment(id);        
     }
 
     render() {
         const { comment, deleteComment, commentVoteUp, commentVoteDown } = this.props;
-        console.log(comment);
         return (
             <Col xs={12} sm={6} md={6} className="">
                 <div className="PostCardPage CommentCard card border-secondary">
@@ -42,7 +41,7 @@ class Comment extends Component {
                                         onConfirm={this.onConfirm.bind(this)}
                                         body="Are you sure you want to delete this comment?"
                                         confirmText="Delete!"
-                                        title={'Delete ' + '"' + comment.author + '"'}>
+                                        title={'Delete comment of ' + '"' + comment.author + '"'}>
                                         <Button className="btn-block btn-danger">
                                             <Glyphicon glyph="trash" />
                                         </Button>

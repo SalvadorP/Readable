@@ -67,9 +67,9 @@ class Comment extends Component {
 }
 
 
-function mapStateToProps(state, postProps) {
-    //  post: state.posts[postProps.match.params.id], comments: state.comments }
-    return {};
+function mapStateToProps(state, commentProps) {
+    // FIXME: It's really necessary this mapping?    
+    return { comment: state.comments[commentProps.comment.id] };
 }
 
 function mapDispatchToProps (dispatch) {

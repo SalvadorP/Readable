@@ -23,7 +23,7 @@ export function getPostComments(id) {
   return dispatch => {
     superagent.get(SERVER_URL + '/posts/' + id + '/comments')
       .set(AUTH_HEADERS)
-      .on('error', actionError(GET_ALL_POSTS))
+      .on('error', actionError(GET_POST_COMMENTS))
       .use(nocache)
       .then(response => dispatch(actionSuccess(response.body, GET_POST_COMMENTS)));
   };
@@ -34,7 +34,7 @@ export function getPostCommentsTotal(id) {
     return dispatch => {
       superagent.get(SERVER_URL + '/posts/' + id + '/comments')
         .set(AUTH_HEADERS)
-        .on('error', actionError(GET_ALL_POSTS))
+        .on('error', actionError(GET_POST_COMMENTS_TOTAL))
         .use(nocache)
         .then(response => dispatch(actionSuccess(response.body, GET_POST_COMMENTS_TOTAL)));
     };
@@ -53,7 +53,7 @@ export function getComment(id) {
 
 export function commentVoteUp(id) {
     return dispatch => {
-        superagent.post(SERVER_URL + '/posts/' + id)
+        superagent.post(SERVER_URL + '/comments/' + id)
             .set(AUTH_HEADERS)
             .send({option: 'upVote'})            
             .on('error', actionError(COMMENT_VOTE_UP))
@@ -64,7 +64,7 @@ export function commentVoteUp(id) {
 
 export function commentVoteDown(id) {
     return dispatch => {
-        superagent.post(SERVER_URL + '/posts/' + id)
+        superagent.post(SERVER_URL + '/comments/' + id)
             .send({option: 'downVote'})
             .set(AUTH_HEADERS)
             .on('error', actionError(COMMENT_VOTE_DOWN))
@@ -97,7 +97,7 @@ export function editComment(formValues) {
     }
 }
 
-export function deletePost(id) {
+export function deleteComment(id) {
     return dispatch => {
         superagent.del(SERVER_URL + '/comment/' + id)
             .send({id: id})

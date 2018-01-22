@@ -16,6 +16,10 @@ export default function(state = INITIAL_STATE, action) {
     switch (action.type) {
         case GET_POST_COMMENTS:
             return _.mapKeys(action.data, 'id');
+        case GET_POST_COMMENTS_TOTAL:
+            return {
+                total: _.size(action.data)
+            }
         case GET_COMMENT:
             return {
                 ...state,

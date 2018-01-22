@@ -6,6 +6,7 @@ import { getPost, editPost, deletePost } from '../actions/Post';
 import NoMatch from './NoMatch';
 import serializeForm from 'form-serialize';
 import Confirm from 'react-confirm-bootstrap';
+import PostCommentList from './PostCommentList';
 
 class PostFormPage extends Component {
 

@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { Col, Button, Glyphicon, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { getPost, postVoteUp, postVoteDown, deletePost } from '../actions/Post';
+import { getPostComments } from '../actions/Comments';
 import NoMatch from './NoMatch';
 import Confirm from 'react-confirm-bootstrap';
+import PostCommentList from './PostCommentList';
 
 class PostPage extends Component {
 
@@ -12,9 +14,22 @@ class PostPage extends Component {
         totalComments: 0
     }
     
+    // componentWillMount() {
+    //     const { id } = this.props.match.params;
+    //     this.props.getPostCommentsTotal(id, (data) => {
+    //         console.log("888888888888888888888");
+    //         console.log(data);
+    //         console.log("888888888888888888888");
+    //         this.setState({totalComments: data.total});
+    //     });       
+    // }
+
+    // IDEA: remove getPostCommentsTotal if it's not used...
+
     componentDidMount() {
         const { id } = this.props.match.params;
-        this.props.getPost(id);     
+        this.props.getPost(id); 
+        this.props.getPostComments(id);
     }
 
     // handleDelete(e) {
@@ -30,7 +45,7 @@ class PostPage extends Component {
     }
 
     render() {
-        const { post, postVoteUp, postVoteDown } = this.props;
+        const { post, postVoteUp, postVoteDown, comments } = this.props;
         // <Button onClick={() => deletePost(post.id)} className="btn-block btn-danger">
         // <Button onClick={this.handleDelete.bind(post.id)} className="btn-block btn-danger">
         
@@ -51,7 +66,7 @@ class PostPage extends Component {
                                     </Col>                                
                                 </Row>                           
                                 <p className="card-text">{post.body}</p>
-                                <Link className="btn btn-primary btn-block" to="/">Comment Post X</Link>
+                                <Link className="btn btn-primary btn-block" to={'/new-comment/' + post.id}>Comment Post X</Link>
                                 <br />
                                 <Row>
                                     <Col xs={6} sm={3} md={3}>
@@ -85,13 +100,20 @@ class PostPage extends Component {
                         </div>
                     </div>
                 </Col>
+                <Col xs={12} sm={12} md={12} className="">
+                    <hr />
+                </Col>
+                <Col xs={12} sm={12} md={12} className="">
+                   <p>Total of Comments: {post.commentCount}</p>
+                   <PostCommentList id={post.id} comments={comments} />
+                </Col>
             </Row>
         )
     }
 }
 
 function mapStateToProps(state, postProps) {
-    return { post: state.posts[postProps.match.params.id] }
+    return { post: state.posts[postProps.match.params.id], comments: state.comments }
 }
 
 function mapDispatchToProps (dispatch) {
@@ -100,6 +122,7 @@ function mapDispatchToProps (dispatch) {
         postVoteUp: (id) => dispatch(postVoteUp(id)),
         postVoteDown: (id) => dispatch(postVoteDown(id)),
         deletePost: (id) => dispatch(deletePost(id)),
+        getPostComments: (id) => dispatch(getPostComments(id)),
     }
 }
 

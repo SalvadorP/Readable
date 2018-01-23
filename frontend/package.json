@@ -17,7 +17,8 @@
     "redux-thunk": "^2.2.0",
     "shortid": "^2.2.8",
     "superagent": "^3.8.2",
-    "superagent-no-cache": "^0.1.1"
+    "superagent-no-cache": "^0.1.1",
+    "uniqid": "^4.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

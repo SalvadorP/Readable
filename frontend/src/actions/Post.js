@@ -6,7 +6,8 @@ import {
     POST_VOTE_UP,
     GET_POST,
     DELETE_POST,
-    EDIT_POST
+    EDIT_POST,
+    NEW_POST
 } from './types';
 
 import superagent from 'superagent';
@@ -29,6 +30,7 @@ export function getAllPosts() {
 
 export function getPost(id) {
     return dispatch => {
+        console.log('GET POST CALLED!');
         superagent.get(SERVER_URL + '/posts/' + id)
             .set(AUTH_HEADERS)
             .on('error', actionError(GET_POST))
@@ -68,6 +70,17 @@ export function editPost(formValues) {
             .on('error', actionError(EDIT_POST))
             // .use(nocache)
             .then(response => {dispatch(actionSuccess(response.body, EDIT_POST))});        
+    }
+}
+
+export function newPost(formValues) {
+    return dispatch => {
+        superagent.put(SERVER_URL + '/posts')
+            .set(AUTH_HEADERS)
+            .send(formValues)            
+            .on('error', actionError(NEW_POST))
+            // .use(nocache)
+            .then(response => {dispatch(actionSuccess(response.body, NEW_POST))});        
     }
 }
 

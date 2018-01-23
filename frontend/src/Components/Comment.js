@@ -32,7 +32,7 @@ class Comment extends Component {
                             <br />
                             <Row>
                                 <Col xs={6} sm={3} md={3}>
-                                    <Link className="btn btn-success btn-block" to={'/' + comment.parentId + '/' + comment.id + '/edit' }>
+                                    <Link className="btn btn-success btn-block" to={'/' + comment.parentId + '/comment/' + comment.id + '/edit' }>
                                         <Glyphicon glyph="pencil" />
                                     </Link>
                                 </Col>

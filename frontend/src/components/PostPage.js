@@ -66,7 +66,7 @@ class PostPage extends Component {
                                     </Col>                                
                                 </Row>                           
                                 <p className="card-text">{post.body}</p>
-                                <Link className="btn btn-primary btn-block" to={'/new-comment/' + post.id}>Comment Post X</Link>
+                                <Link className="btn btn-primary btn-block" to={'/' + post.id + '/comment/new'}>Comment Post X</Link>
                                 <br />
                                 <Row>
                                     <Col xs={6} sm={3} md={3}>

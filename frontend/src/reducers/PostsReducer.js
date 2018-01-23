@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import {
-    GET_ALL_POSTS, POST_VOTE_UP, POST_VOTE_DOWN, GET_POST, DELETE_POST, EDIT_POST
+    GET_ALL_POSTS, POST_VOTE_UP, POST_VOTE_DOWN, GET_POST, DELETE_POST, EDIT_POST, NEW_POST
 } from '../actions/types';
 
 const INITIAL_STATE = {};
@@ -28,6 +28,8 @@ export default function(state = INITIAL_STATE, action) {
             // Just return the state without the deleted post.            
             return _.omit(state, action.data);
         case EDIT_POST:
+            return state;
+        case NEW_POST:
             return state;
 
         default:

@@ -4,6 +4,7 @@ import { Switch } from 'react-router';
 import NoMatch from './NoMatch';
 import PostPage from './PostPage';
 import PostFormPage from './PostFormPage';
+import CommentFormPage from './CommentFormPage';
 import MenuBar from './MenuBar';
 import MainPage from './MainPage';
 import '../css/App.css';
@@ -17,8 +18,11 @@ class App extends Component {
           <br />
           <Switch>
             <Route exact path="/" component={MainPage} />
+            <Route exact path="/:parentId/comment/:id/edit" component={CommentFormPage} />
+            <Route exact path="/:parentId/comment/new" component={CommentFormPage} />
             <Route exact path="/:category/:id" component={PostPage} />
-            <Route exact path="/:category/:id/edit" component={PostFormPage} />
+            <Route exact path="/:category/new" component={PostFormPage} />            
+            <Route exact path="/:category/:id/edit" component={PostFormPage} />            
             <Route component={NoMatch} />
           </Switch>
         </div>

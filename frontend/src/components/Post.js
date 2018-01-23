@@ -6,9 +6,6 @@ class Post extends Component {
     
     render() {
         const {post} = this.props;
-        console.log('====================================');
-        console.log(post);
-        console.log('====================================');
         return (
             <Col xs={6} sm={4} md={4} className="">
                 <div className="PostCardPage">
@@ -30,7 +27,7 @@ class Post extends Component {
                                     <Link className="btn btn-success btn-block" to={post.category + '/' + post.id}><Glyphicon glyph="fullscreen" /></Link>
                                 </Col>
                                 <Col xs={6} sm={6} md={6}>
-                                    <Link className="btn btn-info btn-block" to="/"><Glyphicon glyph="comment" /></Link>
+                                    <Link className="btn btn-info btn-block" to={post.id + '/comment/new'}><Glyphicon glyph="comment" /></Link>
                                 </Col>                                
                             </Row>
                         </div>

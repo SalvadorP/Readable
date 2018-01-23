@@ -74,9 +74,9 @@ export function commentVoteDown(id) {
 }
 
 export function postComment(formValues) {
-    const id = formValues.id;
     return dispatch => {
-        superagent.post(SERVER_URL + '/comments/' + id)
+        console.log('POSTING COMMENT!');
+        superagent.post(SERVER_URL + '/comments')
             .set(AUTH_HEADERS)
             .send(formValues)            
             .on('error', actionError(NEW_COMMENT))

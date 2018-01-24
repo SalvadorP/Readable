@@ -28,10 +28,10 @@ class Post extends Component {
                             <br />
                             <Row>                                
                                 <Col xs={6} sm={3} md={3}>
-                                    <Link className="btn btn-success btn-block" to={post.category + '/' + post.id}><Glyphicon glyph="fullscreen" /></Link>
+                                    <Link className="btn btn-success btn-block" to={'/' + post.category + '/' + post.id}><Glyphicon glyph="fullscreen" /></Link>
                                 </Col>
                                 <Col xs={6} sm={3} md={3}>
-                                    <Link className="btn btn-info btn-block" to={post.id + '/comment/new'}><Glyphicon glyph="comment" /></Link>
+                                    <Link className="btn btn-info btn-block" to={'/' + post.id + '/comment/new'}><Glyphicon glyph="comment" /></Link>
                                 </Col>   
                                 <Col xs={6} sm={3} md={3}>
                                     <Button onClick={() => postVoteUp(post.id)} className="btn-block btn-success">

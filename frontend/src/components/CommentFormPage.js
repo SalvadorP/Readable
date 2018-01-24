@@ -22,6 +22,10 @@ class CommentFormPage extends Component {
         this.props.getComment(id);                  
     }
 
+    componentDidUpdate() {
+        console.log('COMPONENT UPDATE!!!');
+    }
+
     handleSubmit = (e) => {
         const { editComment } = this.props;
         const data = new serializeForm(e.target, {hash: true});
@@ -34,7 +38,7 @@ class CommentFormPage extends Component {
         const { postComment } = this.props;
         const data = new serializeForm(e.target, {hash: true});
         e.preventDefault();    
-        postComment(data);
+        postComment(data, () => {console.log('CALLBACKED!')});
         // IDEA: once saved return to the list.
     }
 

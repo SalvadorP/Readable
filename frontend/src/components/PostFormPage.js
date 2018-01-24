@@ -1,8 +1,10 @@
+import _ from 'lodash';
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Col, Button, Glyphicon, Row, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { getPost, newPost, editPost, deletePost } from '../actions/Post';
+import { getAllCategories } from '../actions/Categories';
 import NoMatch from './NoMatch';
 import serializeForm from 'form-serialize';
 import Confirm from 'react-confirm-bootstrap';
@@ -15,9 +17,13 @@ class PostFormPage extends Component {
         totalComments: 0
     }
     
+    componentWillMount() {
+        this.props.getAllCategories(); 
+    }
+
     componentDidMount() {
         const { id } = this.props.match.params;
-        this.props.getPost(id);     
+        this.props.getPost(id);            
     }
 
     handleSubmit = (e) => {
@@ -44,10 +50,9 @@ class PostFormPage extends Component {
     }
 
     render() {
-        const {post, deletePost} = this.props;
-        // onSubmit={() => this.handleSubmit(this)}
-        // onSubmit={this.handleSubmit.bind(this)}
-        // onSubmit={this.onSubmit}>
+        const { post, deletePost, categories = [] } = this.props;        
+        console.log(post);
+        console.log(categories);
         return (
             (!post) ? 
             // <NoMatch /> 
@@ -74,6 +79,18 @@ class PostFormPage extends Component {
                                             </Col>
                                             <Col sm={10}>
                                                 <FormControl type="text" placeholder="Body" name="body" defaultValue="" />
+                                            </Col>
+                                        </FormGroup>
+                                        <FormGroup controlId="formHorizontalCategory">
+                                            <Col componentClass={ControlLabel} sm={2}>
+                                                Category
+                                            </Col>
+                                            <Col sm={10}>
+                                                <FormControl name="category" componentClass="select" placeholder="select">
+                                                    { _.map(categories, categorie => (
+                                                        <option key={categorie.path} value={categorie.path}>{categorie.name}</option>                      
+                                                    )) }   
+                                                </FormControl>
                                             </Col>
                                         </FormGroup>
                                         <FormGroup controlId="formHorizontalAuthor">
@@ -129,6 +146,18 @@ class PostFormPage extends Component {
                                             <FormControl type="text" placeholder="Body" name="body" defaultValue={post.body} />
                                         </Col>
                                     </FormGroup>
+                                    <FormGroup controlId="formHorizontalCategory">
+                                            <Col componentClass={ControlLabel} sm={2}>
+                                                Category
+                                            </Col>
+                                            <Col sm={10}>
+                                                <FormControl name="category" componentClass="select" placeholder="select">
+                                                    { _.map(categories, categorie => (
+                                                        <option key={categorie.path} value={categorie.path} selected={categorie.path === post.category}>{categorie.name}</option>                      
+                                                    )) }   
+                                                </FormControl>
+                                            </Col>
+                                        </FormGroup>
                                     <FormGroup controlId="formHorizontalAuthor">
                                         <Col componentClass={ControlLabel} sm={2}>
                                             Author
@@ -184,7 +213,7 @@ class PostFormPage extends Component {
 // }
 
 function mapStateToProps(state, postProps) {
-    return { post: state.posts[postProps.match.params.id] }
+    return { post: state.posts[postProps.match.params.id], categories: state.categories }
 }
 
 function mapDispatchToProps (dispatch) {
@@ -193,12 +222,9 @@ function mapDispatchToProps (dispatch) {
         newPost: (id) => dispatch(newPost(id)),
         editPost: (id) => dispatch(editPost(id)),
         deletePost: (id) => dispatch(deletePost(id)),
+        getAllCategories: () => dispatch(getAllCategories()),
     }
 }
-
-// export default connect(mapStateToProps, {
-//     getPost, postVoteUp, postVoteDown, editPost, deletePost
-// })(PostPage);
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostFormPage);
 

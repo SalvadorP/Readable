@@ -18,10 +18,11 @@ class App extends Component {
           <br />
           <Switch>
             <Route exact path="/" component={MainPage} />
+            <Route exact path="/:category" component={MainPage} />
+            <Route exact path="/post/new" component={PostFormPage} />            
             <Route exact path="/:parentId/comment/:id/edit" component={CommentFormPage} />
             <Route exact path="/:parentId/comment/new" component={CommentFormPage} />
-            <Route exact path="/:category/:id" component={PostPage} />
-            <Route exact path="/:category/new" component={PostFormPage} />            
+            <Route exact path="/:category/:id" component={PostPage} />            
             <Route exact path="/:category/:id/edit" component={PostFormPage} />            
             <Route component={NoMatch} />
           </Switch>

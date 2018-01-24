@@ -7,7 +7,7 @@ class Post extends Component {
     render() {
         const {post} = this.props;
         return (
-            <Col xs={6} sm={4} md={4} className="">
+            <Col xs={4} sm={4} md={5} className="">
                 <div className="PostCardPage">
                     <div className="card">
                         <div className="card-body">

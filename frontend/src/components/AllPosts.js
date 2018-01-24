@@ -20,13 +20,13 @@ class AllPosts extends Component {
     }
 
     render() {
-        const { posts = [] } = this.props;        
+        const { posts = [] } = this.props;       
+        const { category = ''} = this.props.match.params;
+        let filteredPosts = category !== '' ? _.filter(posts, {'category': category}) : posts;
         return (
-            <Grid>
-                <Row>
-                    { _.map(posts, post => <Post key={post.id} post={post} />) }   
-                </Row>
-            </Grid>
+            <Row>
+                { _.map(filteredPosts, post => <Post key={post.id} post={post} />) }   
+            </Row>
         )
     }
 }

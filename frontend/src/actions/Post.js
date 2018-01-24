@@ -75,7 +75,7 @@ export function editPost(formValues) {
 
 export function newPost(formValues) {
     return dispatch => {
-        superagent.put(SERVER_URL + '/posts')
+        superagent.post(SERVER_URL + '/posts')
             .set(AUTH_HEADERS)
             .send(formValues)            
             .on('error', actionError(NEW_POST))

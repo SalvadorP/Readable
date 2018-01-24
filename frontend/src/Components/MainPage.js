@@ -4,6 +4,10 @@ import AllPosts from './AllPosts';
 import Categories from './Categories';
 
 class MainPage extends Component {
+    componentWillMount() {
+        console.log('Main Page CDM');
+        console.log(this.props);
+    }
 
     render() {
         return (
@@ -13,14 +17,12 @@ class MainPage extends Component {
             </Jumbotron>
             <Grid fluid>
             <Row>
-                <Col xs={8} sm={9} md={10}>
-                    <Row>
-                        <AllPosts {...this.props} />
-                    </Row>
+                <Col xs={8} sm={8} md={10}>
+                    <AllPosts {...this.props} />
                 </Col>
-                <Col xs={4} sm={3} md={2}>                    
+                <Col xs={4} sm={4} md={2}>                    
                     <Row className="AllCategories">
-                        <Categories />                    
+                        <Categories category={this.props.match.params.category} />                    
                     </Row>
                 </Col>      
                 </Row>      

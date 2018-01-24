@@ -1,39 +1,32 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Col, Button, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { getAllCategories } from '../actions/Categories';
+import { Link } from 'react-router-dom';
 
 class Categories extends Component {
-    // TODO: Get all the categories and render them in a select.
     componentWillMount() {
-        console.log('CATEGORIES component will mount');
-        // FIXME: Which is better? will mount or did mount?
         this.props.getAllCategories();
-    }
-
-    submitHandler(e) {
-        console.log('=== Categories submitHandler ===');
-        // TODO: When changing categories, reload the posts filtered by category.
-        // Alter the state to avoid a request? Or better to ask the server filtering by cat?        
-        console.log(e.target.value);
-        console.log('=== ======================== ===');
     }
 
     render() {
         const { categories = [] } = this.props;
+        const {category = ''} = this.props;
         return (
             <div className="Categories">
-            <form>
-                <FormGroup controlId="formControlsSelect">
-                    <ControlLabel>Categories</ControlLabel>
-                    <FormControl componentClass="select" placeholder="select" onChange={this.submitHandler}>
-                        { _.map(categories, categorie => (
-                            <option key={categorie.path} value={categorie.path}>{categorie.name}</option>                      
-                        )) }   
-                    </FormControl>
-                </FormGroup>
-            </form>
+            <Col xs={12} sm={12} md={12}>                                
+            <ListGroup>
+                <ListGroupItem href='/' active={category === '' ? 'active' : ''}>All</ListGroupItem>
+                { _.map(categories, cat => (
+                    <ListGroupItem href={'/' + cat.path} active={cat.path === category ? 'active' : ''}>{cat.name}</ListGroupItem>
+                )) }   
+            </ListGroup>
+            </Col>
+            <Col xs={12} sm={12} md={12}>                    
+                <Link className="btn btn-success btn-block" to={'/post/new'}>New Post</Link>
+            </Col>
+            
             </div>
         )
     }

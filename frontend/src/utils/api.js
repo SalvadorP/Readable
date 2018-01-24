@@ -7,16 +7,3 @@ export function headers() {
   return headers;
 }
 
-export function getPosts() {
-  fetch("http://localhost:3001/posts", {method: "GET", headers: headers()})
-  .then(function(resp){
-    resp.json().then(function(data){
-      console.log(data);
-      var obj = {
-        type: GET_ALL_POSTS,
-        posts: data
-      };
-      return obj;
-    })
-  })
-}

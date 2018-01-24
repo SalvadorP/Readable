@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { FormGroup, ControlLabel, FormControl, Col, Button, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Col, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { getAllCategories } from '../actions/Categories';
 import { Link } from 'react-router-dom';
 
@@ -25,8 +25,7 @@ class Categories extends Component {
             </Col>
             <Col xs={12} sm={12} md={12}>                    
                 <Link className="btn btn-success btn-block" to={'/post/new'}>New Post</Link>
-            </Col>
-            
+            </Col>            
             </div>
         )
     }

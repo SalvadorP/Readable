@@ -4,24 +4,21 @@ import { Col, Button, Glyphicon, Row, FormGroup, FormControl, ControlLabel } fro
 import { Link } from 'react-router-dom';
 import { getComment, postComment, editComment, deleteComment } from '../actions/Comments';
 import { getPost } from '../actions/Post';
-import NoMatch from './NoMatch';
+// import NoMatch from './NoMatch';
 import serializeForm from 'form-serialize';
 import Confirm from 'react-confirm-bootstrap';
 import uniqid from 'uniqid';
 
 class CommentFormPage extends Component {
-    
-    state = {
-        parentPost: {}
-    }
-
+    // TODO: Refactorize the Form for comments and use only one.
+   
     componentWillMount() {
         const { parentId } = this.props.match.params;
         this.props.getPost(parentId);     
     }
 
     componentDidMount() {
-        const { id, parentId } = this.props.match.params;
+        const { id } = this.props.match.params;
         this.props.getComment(id);                  
     }
 
@@ -48,8 +45,7 @@ class CommentFormPage extends Component {
     }
 
     render() {
-        const {comment, post, deleteComment} = this.props;
-        console.log(this.props);
+        const {comment, post} = this.props;
         return (
             (!comment) ? 
             // <NoMatch /> 
@@ -137,7 +133,7 @@ class CommentFormPage extends Component {
                                                 onConfirm={this.onConfirm.bind(this)}
                                                 body="Are you sure you want to delete this comment?"
                                                 confirmText="Delete!"
-                                                title={'Delete comment from ' + '"' + comment.author + '"'}>
+                                                title={'Delete comment from ' + comment.author}>
                                                 <Button className="btn-block btn-danger">
                                                     <Glyphicon glyph="trash" />
                                                 </Button>

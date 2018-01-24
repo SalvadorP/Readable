@@ -9,7 +9,7 @@ import {
     EDIT_POST,
     NEW_POST
 } from './types';
-
+import { actionError, actionSuccess } from './common';
 import superagent from 'superagent';
 import nocache from 'superagent-no-cache';
 
@@ -94,19 +94,3 @@ export function deletePost(id) {
             .then(response => dispatch(actionSuccess(id, DELETE_POST)));        
     }
 }
-
-// -------------------- COMMON FUNCTIONS FOR THE ACTIONS --------------------
-export function actionSuccess(data, type) {
-    return {
-        type: type,
-        data: data
-    };
-}
-
-export function actionError(type) {
-    return {
-        type: type,
-        data: []
-    };
-}
-// --------------------------------------------------------------------------

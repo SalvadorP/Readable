@@ -4,11 +4,6 @@ import AllPosts from './AllPosts';
 import Categories from './Categories';
 
 class MainPage extends Component {
-    componentWillMount() {
-        console.log('Main Page CDM');
-        console.log(this.props);
-    }
-
     render() {
         return (
         <div className="MainPageComponent">

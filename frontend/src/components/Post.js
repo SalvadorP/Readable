@@ -38,27 +38,5 @@ class Post extends Component {
     }
 }
 
-// const mapDispatchToProps(dispatch) => {
-//     return {
-//         postVoteUp : (...args) => dispatch(action1(...args)),
-//         autoBoundAction : bindActionCreators(action2, dispatch),
-//         multipleActionsTogether : bindActionCreators({action1, action2}, dispatch)
-//     }
-// };
-
-// export default connect(null, mapDispatchToProps)(Post);
-
-// function mapStateToProps(state) {
-//     if (state !== undefined) {
-//         const post = state.post;
-//         return {post};
-//     }
-//     return {};
-// }
-
-// export default connect(null, {
-//     postVoteUp, postVoteDown
-// })(Post);
-
 export default Post;
 

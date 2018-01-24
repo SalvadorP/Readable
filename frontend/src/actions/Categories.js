@@ -3,46 +3,20 @@ import {
     SERVER_URL,
     AUTH_HEADERS
 } from './types';
-
+import { actionError, actionSuccess } from './common';
 import superagent from 'superagent';
 import nocache from 'superagent-no-cache';
 
 // -----------------------------------------------------------------------------
 //                                 CATEGORIES ACTIONS
 // -----------------------------------------------------------------------------
-// https://visionmedia.github.io/superagent/
 
-export function getAllCategories() {
-  // console.log('GET ALL CATEGORIES');
-  // return dispatch => {
-  //   fetch(SERVER_URL + "/categories/", {method: "GET", headers: AUTH_HEADERS})
-  //   .then((resp) => {
-  //     resp.json().then((data) => {
-  //       dispatch(getAllCategoriesSuccess(data));
-  //     })
-  //   });
-  // }
+export function getAllCategories() { 
   return dispatch => {
     superagent.get(SERVER_URL + '/categories')
       .set(AUTH_HEADERS)
-      .on('error', getAllCategoriesError())
+      .on('error', actionError(GET_ALL_CATEGORIES))
       .use(nocache)
-      .then(response => dispatch(getAllCategoriesSuccess(response.body)));
-  };
-}
-
-export function getAllCategoriesSuccess(categories) {
-    console.log(categories);
-  return {
-    type: GET_ALL_CATEGORIES,
-    data: categories
-  };
-}
-
-// TODO: Check if it's used...
-export function getAllCategoriesError(response) {
-  return {
-    type: GET_ALL_CATEGORIES,
-    data: []
+      .then(response => dispatch(actionSuccess(response.body, GET_ALL_CATEGORIES)));        
   };
 }

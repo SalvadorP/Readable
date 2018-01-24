@@ -10,14 +10,13 @@ import {
     COMMENT_VOTE_UP,
     COMMENT_VOTE_DOWN
 } from './types';
-
+import { actionError, actionSuccess } from './common';
 import superagent from 'superagent';
 import nocache from 'superagent-no-cache';
 
 // -----------------------------------------------------------------------------
 //                                 Comments ACTIONS
 // -----------------------------------------------------------------------------
-// https://visionmedia.github.io/superagent/
 
 export function getPostComments(id) {
   return dispatch => {
@@ -107,19 +106,3 @@ export function deleteComment(id) {
             .then(response => dispatch(actionSuccess(id, DELETE_COMMENT)));        
     }
 }
-
-// -------------------- COMMON FUNCTIONS FOR THE ACTIONS --------------------
-export function actionSuccess(data, type) {
-    return {
-        type: type,
-        data: data
-    };
-}
-
-export function actionError(type) {
-    return {
-        type: type,
-        data: []
-    };
-}
-// --------------------------------------------------------------------------

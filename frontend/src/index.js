@@ -26,10 +26,6 @@ const store = createStore(
     )
 );
 
-console.log('====================================');
-console.log(store.getState());
-console.log('====================================');
-
 ReactDOM.render(
     <Provider store={store}><App /></Provider>,     
     document.getElementById('root')

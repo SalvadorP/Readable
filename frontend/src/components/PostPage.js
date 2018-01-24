@@ -10,33 +10,11 @@ import PostCommentList from './PostCommentList';
 
 class PostPage extends Component {
 
-    state = {
-        totalComments: 0
-    }
-    
-    // componentWillMount() {
-    //     const { id } = this.props.match.params;
-    //     this.props.getPostCommentsTotal(id, (data) => {
-    //         console.log("888888888888888888888");
-    //         console.log(data);
-    //         console.log("888888888888888888888");
-    //         this.setState({totalComments: data.total});
-    //     });       
-    // }
-
-    // IDEA: remove getPostCommentsTotal if it's not used...
-
     componentDidMount() {
         const { id } = this.props.match.params;
         this.props.getPost(id); 
         this.props.getPostComments(id);
     }
-
-    // handleDelete(e) {
-    //     const { id } = this.props.match.params;
-    //     const { deletePost } = this.props;        
-    //     deletePost(id);        
-    // }
 
     onConfirm() {
         const { id } = this.props.match.params;
@@ -46,8 +24,6 @@ class PostPage extends Component {
 
     render() {
         const { post, postVoteUp, postVoteDown, comments } = this.props;
-        // <Button onClick={() => deletePost(post.id)} className="btn-block btn-danger">
-        // <Button onClick={this.handleDelete.bind(post.id)} className="btn-block btn-danger">
         
         return (
             (!post) ? <NoMatch /> : 
@@ -79,7 +55,7 @@ class PostPage extends Component {
                                             onConfirm={this.onConfirm.bind(this)}
                                             body="Are you sure you want to delete this post?"
                                             confirmText="Delete!"
-                                            title={'Delete ' + '"' + post.title + '"'}>
+                                            title={'Delete ' + post.title}>
                                             <Button className="btn-block btn-danger">
                                                 <Glyphicon glyph="trash" />
                                             </Button>

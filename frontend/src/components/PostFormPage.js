@@ -5,18 +5,15 @@ import { Col, Button, Glyphicon, Row, FormGroup, FormControl, ControlLabel } fro
 import { Link } from 'react-router-dom';
 import { getPost, newPost, editPost, deletePost } from '../actions/Post';
 import { getAllCategories } from '../actions/Categories';
-import NoMatch from './NoMatch';
+// import NoMatch from './NoMatch';
 import serializeForm from 'form-serialize';
 import Confirm from 'react-confirm-bootstrap';
 import PostCommentList from './PostCommentList';
 import uniqid from 'uniqid';
 
 class PostFormPage extends Component {
-
-    state = {
-        totalComments: 0
-    }
-    
+    // TODO: Refactorize the Form for posts and use only one.
+      
     componentWillMount() {
         this.props.getAllCategories(); 
     }
@@ -50,9 +47,7 @@ class PostFormPage extends Component {
     }
 
     render() {
-        const { post, deletePost, categories = [] } = this.props;        
-        console.log(post);
-        console.log(categories);
+        const { post, categories = [] } = this.props;        
         return (
             (!post) ? 
             // <NoMatch /> 
@@ -178,7 +173,7 @@ class PostFormPage extends Component {
                                                 onConfirm={this.onConfirm.bind(this)}
                                                 body="Are you sure you want to delete this post?"
                                                 confirmText="Delete!"
-                                                title={'Delete ' + '"' + post.title + '"'}>
+                                                title={'Delete ' + post.title}>
                                                 <Button className="btn-block btn-danger">
                                                     <Glyphicon glyph="trash" />
                                                 </Button>
@@ -201,16 +196,6 @@ class PostFormPage extends Component {
         )
     }
 }
-
-// function FieldGroup({ id, label, help, ...props }) {
-// 	return (
-// 		<FormGroup controlId={id}>
-// 			<ControlLabel>{label}</ControlLabel>
-// 			<FormControl {...props} />
-// 			{help && <HelpBlock>{help}</HelpBlock>}
-// 		</FormGroup>
-// 	);
-// }
 
 function mapStateToProps(state, postProps) {
     return { post: state.posts[postProps.match.params.id], categories: state.categories }

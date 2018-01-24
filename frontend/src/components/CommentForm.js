@@ -10,6 +10,8 @@ import Confirm from 'react-confirm-bootstrap';
 
 class CommentForm extends Component {
     
+    // TODO: Refactorize the Form for comments and use only one.
+
     componentWillMount() {
         console.log('CWM Comment Form Page');
     }

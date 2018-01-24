@@ -19,6 +19,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={MainPage} />
             <Route exact path="/:category" component={MainPage} />
+            <Route exact path="/:category/sortby/:sortby" component={MainPage} />            
             <Route exact path="/post/new" component={PostFormPage} />            
             <Route exact path="/:parentId/comment/:id/edit" component={CommentFormPage} />
             <Route exact path="/:parentId/comment/new" component={CommentFormPage} />

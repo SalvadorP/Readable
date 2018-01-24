@@ -5,6 +5,7 @@ import Categories from './Categories';
 
 class MainPage extends Component {
     render() {
+        const { category, sortby } = this.props.match.params;
         return (
         <div className="MainPageComponent">
             <Jumbotron>
@@ -17,7 +18,7 @@ class MainPage extends Component {
                 </Col>
                 <Col xs={4} sm={4} md={2}>                    
                     <Row className="AllCategories">
-                        <Categories category={this.props.match.params.category} />                    
+                        <Categories category={category} sortby={sortby}/>                    
                     </Row>
                 </Col>      
                 </Row>      

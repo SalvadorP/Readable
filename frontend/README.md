@@ -17,6 +17,7 @@ Recommended the use of yarn, but with npm you are good to go.
 - npm install
 - npm start
 
-## TODO
+## Nice to have
 - Create a Heroku instance and host this there.
 - When creating a post/comment go back to the post/comment list.
+- Refactor the Comment/Post Forms.

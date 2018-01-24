@@ -11,13 +11,27 @@ class AllPosts extends Component {
         getAllPosts();
     }
 
+    sortIt(posts, sortby) {
+        switch(sortby) {
+            case 'upvotes':
+                return _.reverse(_.sortBy(posts, ['voteScore']));
+            case 'downvotes':
+                return _.sortBy(posts, ['voteScore']);
+            case 'latest':
+                return _.reverse(_.sortBy(posts, ['timestamp']));
+            default:
+                return posts;
+        }
+    }
+
     render() {
         const { posts = [] } = this.props;       
-        const { category = ''} = this.props.match.params;
-        let filteredPosts = category !== '' ? _.filter(posts, {'category': category}) : posts;
+        const { category = '', sortby = ''} = this.props.match.params;
+        let filteredPosts = (category === 'all' || category === '') ? posts : _.filter(posts, {'category': category});
+        let sortedPosts = this.sortIt(filteredPosts, sortby);
         return (
             <Row>
-                { _.map(filteredPosts, post => <Post key={post.id} post={post} />) }   
+                { _.map(sortedPosts, post => <Post key={post.id} post={post} />) }   
             </Row>
         )
     }

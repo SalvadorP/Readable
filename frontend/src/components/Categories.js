@@ -5,6 +5,7 @@ import { Col, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { getAllCategories } from '../actions/Categories';
 import { Link } from 'react-router-dom';
 import uniqid from 'uniqid';
+import OrderByElements from './OrderByElements';
 
 class Categories extends Component {
     componentWillMount() {
@@ -31,12 +32,7 @@ class Categories extends Component {
                     <Link className="btn btn-success btn-block" to={'/post/new'}>New Post</Link>
                 </Col>     
                 <Col xs={12} sm={12} md={12}>                    
-                    <h2>Sort By</h2>
-                    <ListGroup>
-                        <ListGroupItem key={uniqid()} href={'/' + category + '/sortby/upvotes'} active={sortby === 'upvotes' ? 'active' : ''}>Up Votes</ListGroupItem>
-                        <ListGroupItem key={uniqid()} href={'/' + category + '/sortby/downvotes'} active={sortby === 'downvotes' ? 'active' : ''}>Down Votes</ListGroupItem>
-                        <ListGroupItem key={uniqid()} href={'/' + category + '/sortby/latest'} active={sortby === 'latest' ? 'active' : ''}>Latest</ListGroupItem>
-                    </ListGroup>                    
+                    <OrderByElements category={category} sortby={sortby} id={''}/>                 
                 </Col>               
             </div>
         )

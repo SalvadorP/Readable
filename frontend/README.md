@@ -14,7 +14,7 @@ Recommended the use of yarn, but with npm you are good to go.
 
 ### Frontend
 - cd frontend
-- npm install
+- npm install 
 - npm start
 
 ## Nice to have

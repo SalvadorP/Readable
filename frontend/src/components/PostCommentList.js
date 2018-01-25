@@ -5,15 +5,26 @@ import { Col, Row } from 'react-bootstrap';
 import { getPostComments } from '../actions/Comments';
 import Comment from './Comment';
 import NoMatch from './NoMatch';
+import OrderByElements from './OrderByElements';
+import { sortIt } from '../utils/api';
 
 class PostCommentList extends Component {
     render() {
         const { comments } = this.props;       
+        let { category = '', sortby, id } = this.props;
+        if (category === '') {
+            category = 'all';
+        }  
+        let sortedComments = sortIt(comments, sortby);        
+
         return (
-            (!comments) ? <NoMatch /> : 
+            (!sortedComments) ? <NoMatch /> : 
             <Row>
-                <Col xs={12} sm={12} md={12} className="">
-                    { _.map(comments, comment => <Comment key={comment.id} comment={comment} />) }   
+                <Col xs={8} sm={8} md={8} className="">
+                    { _.map(sortedComments, comment => <Comment key={comment.id} comment={comment} />) }   
+                </Col>
+                <Col xs={4} sm={4} md={4} className="">
+                    <OrderByElements category={category} sortby={sortby} id={id} />
                 </Col>
             </Row>
         )

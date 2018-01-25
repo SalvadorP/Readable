@@ -24,6 +24,7 @@ class PostPage extends Component {
 
     render() {
         const { post, postVoteUp, postVoteDown, comments } = this.props;
+        const { category, sortby } = this.props.match.params;
         
         return (
             (!post) ? <NoMatch /> : 
@@ -81,7 +82,7 @@ class PostPage extends Component {
                 </Col>
                 <Col xs={12} sm={12} md={12} className="">
                    <p>Total of Comments: {post.commentCount}</p>
-                   <PostCommentList id={post.id} comments={comments} />
+                   <PostCommentList id={post.id} comments={comments} category={category} sortby={sortby} />
                 </Col>
             </Row>
         )

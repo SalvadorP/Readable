@@ -4,6 +4,7 @@ import { Col, Row, Glyphicon, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Confirm from 'react-confirm-bootstrap';
 import { deleteComment, commentVoteUp, commentVoteDown } from '../actions/Comments';
+import * as moment from 'moment';
 
 class Comment extends Component {
 
@@ -23,6 +24,7 @@ class Comment extends Component {
                             <Row>
                                 <Col xs={8} sm={8} md={8}>
                                     <h6 className="card-subtitle mb-2 text-muted">{comment.author}</h6>
+                                    <h6 className="card-subtitle text-muted">{moment(parseInt(comment.timestamp, 10)).format("YYYY/MM/DD")}</h6>
                                 </Col>
                                 <Col xs={4} sm={4} md={4}>
                                     <span className="label label-info">Votes: {comment.voteScore}</span>

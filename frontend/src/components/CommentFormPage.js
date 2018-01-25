@@ -89,7 +89,7 @@ class CommentFormPage extends Component {
                                             </Col>
                                             <Col xs={4} sm={4} md={4}>
                                                 <Link className="btn btn-primary btn-block" to={'/' + post.category + '/' + post.id}>
-                                                    <Glyphicon glyph="remove" />
+                                                    <Glyphicon glyph="remove" /> Go Back
                                                 </Link>
                                             </Col>                                     
                                         </Row>
@@ -145,7 +145,7 @@ class CommentFormPage extends Component {
                                         </Col>     
                                         <Col xs={4} sm={4} md={4}>
                                             <Link className="btn btn-primary btn-block" to={'/' + post.category + '/' + post.id}>
-                                                <Glyphicon glyph="remove" />
+                                                <Glyphicon glyph="remove" /> Go Back
                                             </Link>
                                         </Col>                                     
                                     </Row>

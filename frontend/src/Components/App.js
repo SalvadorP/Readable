@@ -24,6 +24,7 @@ class App extends Component {
             <Route exact path="/:parentId/comment/:id/edit" component={CommentFormPage} />
             <Route exact path="/:parentId/comment/new" component={CommentFormPage} />
             <Route exact path="/:category/:id" component={PostPage} />            
+            <Route exact path="/:category/:id/sortby/:sortby" component={PostPage} />            
             <Route exact path="/:category/:id/edit" component={PostFormPage} />            
             <Route component={NoMatch} />
           </Switch>

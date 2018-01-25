@@ -13,11 +13,11 @@ class CommentForm extends Component {
     // TODO: Refactorize the Form for comments and use only one.
 
     componentWillMount() {
-        console.log('CWM Comment Form Page');
+        // console.log('CWM Comment Form Page');
     }
 
     componentDidMount() {
-        console.log('CDM Comment Form Page');
+        // console.log('CDM Comment Form Page');
         // const { id, parentId } = this.props.match.params;
         // this.props.getComment(id);            
     }

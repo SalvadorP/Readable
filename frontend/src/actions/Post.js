@@ -30,7 +30,6 @@ export function getAllPosts() {
 
 export function getPost(id) {
     return dispatch => {
-        console.log('GET POST CALLED!');
         superagent.get(SERVER_URL + '/posts/' + id)
             .set(AUTH_HEADERS)
             .on('error', actionError(GET_POST))

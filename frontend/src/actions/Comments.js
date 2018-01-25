@@ -72,7 +72,7 @@ export function commentVoteDown(id) {
     }
 }
 
-export function postComment(formValues, callback) {
+export function postComment(formValues) {
     return dispatch => {
         superagent.post(SERVER_URL + '/comments')
             .set(AUTH_HEADERS)
@@ -80,7 +80,6 @@ export function postComment(formValues, callback) {
             .on('error', actionError(NEW_COMMENT))
             // .use(nocache)
             .then(response => {
-                // callback(); 
                 dispatch(actionSuccess(response.body, NEW_COMMENT));
             });        
     }

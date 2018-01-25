@@ -9,9 +9,6 @@ export function headers() {
 }
 
 export function sortIt(data, sortby) {
-  console.log('** sortIt **');
-  console.log(data);
-  console.log('** ****** **');
   switch(sortby) {
       case 'upvotes':
           return _.reverse(_.sortBy(data, ['voteScore']));

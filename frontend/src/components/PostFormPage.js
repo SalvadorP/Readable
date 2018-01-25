@@ -34,7 +34,8 @@ class PostFormPage extends Component {
     handleNewSubmit = (e) => {
         const { newPost } = this.props;
         const data = new serializeForm(e.target, {hash: true});
-        e.preventDefault();               
+        data.id = uniqid();     
+        e.preventDefault();     
         newPost(data);
         // IDEA: once saved return to the list.
     }
@@ -63,7 +64,7 @@ class PostFormPage extends Component {
                                                 Title
                                             </Col>
                                             <Col sm={10}>                                            
-                                                <FormControl type="hidden" name="id" defaultValue={uniqid()} />
+                                                <FormControl type="hidden" name="id" defaultValue="" />
                                                 <FormControl type="hidden" name="timestamp" defaultValue={Date.now()} />
                                                 <FormControl type="text" placeholder="Title" name="title" defaultValue="" />
                                             </Col>

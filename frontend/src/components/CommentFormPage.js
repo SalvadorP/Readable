@@ -37,6 +37,7 @@ class CommentFormPage extends Component {
     handleNewSubmit = (e) => {
         const { postComment } = this.props;
         const data = new serializeForm(e.target, {hash: true});
+        data.id = uniqid();        
         e.preventDefault();    
         postComment(data);
         // IDEA: once saved return to the list.
@@ -66,7 +67,7 @@ class CommentFormPage extends Component {
                                                 Body
                                             </Col>
                                             <Col sm={10}>
-                                                <FormControl type="hidden" name="id" defaultValue={uniqid()} />
+                                                <FormControl type="hidden" name="id" defaultValue="" />
                                                 <FormControl type="hidden" name="parentId" defaultValue={this.props.match.params.parentId} />
                                                 <FormControl type="hidden" name="timestamp" defaultValue={Date.now()} />
                                                 <FormControl type="text" placeholder="Body" name="body" defaultValue="" />

@@ -1,40 +1,31 @@
 import React, {Component} from 'react';
-import { Grid, Row, Col, Jumbotron } from 'react-bootstrap';
-import PostCard from './PostCard';
+import { Jumbotron, Row, Col, Grid } from 'react-bootstrap';
+import AllPosts from './AllPosts';
+import Categories from './Categories';
 
-class MainPage extends Component {e
-
+class MainPage extends Component {
     render() {
+        const { category, sortby } = this.props.match.params;
         return (
         <div className="MainPageComponent">
             <Jumbotron>
                 <h1>Readable Posts</h1>
             </Jumbotron>
-            <Grid>
-                <Row>
-                    <Col xs={6} sm={3} className="PostCard">
-                        <PostCard postTitle={'Post 1'} />                       
-                    </Col>
-                    <Col xs={6} sm={3} className="PostCard">
-                        <PostCard postTitle={'Post 2'} />        
-                    </Col>
-                    <Col xs={6} sm={3} className="PostCard">
-                        <PostCard postTitle={'Post 3'} />        
-                    </Col>
-                    <Col xs={6} sm={3} className="PostCard">
-                        <PostCard postTitle={'Post 4'} />        
-                    </Col>
-                    <Col xs={6} sm={3} className="PostCard">
-                        <PostCard postTitle={'Post 5'} />        
-                    </Col>
-                    <Col xs={6} sm={3} className="PostCard">
-                        <PostCard postTitle={'Post 6'} />        
-                    </Col>
-                </Row>    
+            <Grid fluid>
+            <Row>
+                <Col xs={8} sm={8} md={10}>
+                    <AllPosts {...this.props} />
+                </Col>
+                <Col xs={4} sm={4} md={2}>                    
+                    <Row className="AllCategories">
+                        <Categories category={category} sortby={sortby}/>                    
+                    </Row>
+                </Col>      
+                </Row>      
             </Grid>
         </div>
         )
     }
 }
 
-export default MainPage
+export default MainPage;
